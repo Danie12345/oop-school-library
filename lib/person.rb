@@ -13,4 +13,13 @@ class Person
   def of_age?
     @age >= 18
   end
+
+  public
+
+  def can_use_services?
+    of_age? || @parent_permission
+  end
 end
+
+sam = Person.new(19)
+p sam.can_use_services?
