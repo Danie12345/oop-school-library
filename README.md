@@ -2,15 +2,22 @@
 
 ## Ruby Rubocop Template
 
-Linters for Ruby. Microverse program.
+An object-based school library that uses the Ruby Object Model run on the IRB.
 
-## Authors
+## Setup Project
+- Clone repo.
+- Install dependencies with `bundle install`
 
-👤 **Andres Agudelo**
+## Usage
+- Run test with `ruby lib/test_methods.rb`
 
-- GitHub: [@anagudelogu](https://github.com/anagudelogu)
-- Twitter: [@AgudeloAndres\_\_](https://twitter.com/AgudeloAndres__)
-- LinkedIn: [Andres Agudelo Guzman](https://linkedin.com/in/aagst)
+## Author
+
+👤 **Daniel Malo**
+
+- GitHub: [@Danie12345](https://github.com/Danie12345)
+- Twitter: [@DanielMalo_v4](https://twitter.com/DanielMalo_v4)
+- LinkedIn: [Daniel Malo](https://linkedin.com/in/daniel-malo)
 
 ---
 
