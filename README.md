@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-## Ruby Rubocop Template
+## OOP School Library
 
 An object-based school library that uses the Ruby Object Model run on the IRB.
 
