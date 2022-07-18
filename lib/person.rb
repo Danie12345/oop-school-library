@@ -20,6 +20,3 @@ class Person
     of_age? || @parent_permission
   end
 end
-
-sam = Person.new(19)
-p sam.can_use_services?
