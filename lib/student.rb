@@ -6,6 +6,7 @@ class Student < Person
   def initialize(classroom, age, name)
     super(age, name)
     @classroom = classroom
+    classroom.student << self
   end
 
   def play_hooky
