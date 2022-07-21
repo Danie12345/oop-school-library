@@ -6,9 +6,10 @@ require_relative 'book'
 
 class App
   def initialize
-    @people = { 'student' => [], 'teachers' => [] }
+    @people = { 'student' => [], 'teacher' => [] }
     @books = []
     @rentals = []
+    @classroom = Classroom.new('Room A')
   end
 
   def list_books
@@ -26,6 +27,25 @@ class App
       group.each do |person|
         list_people(person, type)
       end
+    end
+  end
+
+  def create_person()
+    puts 'Do you want to create a student or a teacher? '
+    type = gets.chomp
+    puts 'Name: '
+    name = gets.chomp
+    puts 'Age: '
+    age = gets.chomp
+    case type
+    when 'student'
+      puts 'Has parent\'s permission? (y/n) '
+      perms = gets.chomp
+      @people['student'] << Student.new(@classroom, age, name, perms)
+    when 'teacher'
+      puts 'What\'s the teacher\'s specialization? '
+      spesh = gets.chomp
+      @people['teacher'] << Teacher.new(spesh, age, name)
     end
   end
 end
