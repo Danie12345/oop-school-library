@@ -1,5 +1,4 @@
 require 'securerandom'
-
 require_relative 'nameable'
 
 class Person < Nameable
