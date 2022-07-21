@@ -13,6 +13,3 @@ class Student < Person
     '¯\(ツ)/¯'
   end
 end
-
-sam = Student.new(3, 19, 'Sam')
-p sam

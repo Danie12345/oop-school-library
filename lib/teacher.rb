@@ -10,6 +10,3 @@ class Teacher < Person
     true
   end
 end
-
-cal = Teacher.new(3, 38, 'Cal')
-p cal
