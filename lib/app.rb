@@ -12,8 +12,8 @@ class App
     @classroom = Classroom.new('Room A')
   end
 
-  def call_input
-    puts "What would you like to do first? (1 - 7) "
+  def call_input(first)
+    puts "What would you like to do #{first ? 'first' : 'next'}? (1 - 7)"
     puts '1 - List all books'
     puts '2 - List all people'
     puts '3 - Create a person'
@@ -27,7 +27,7 @@ class App
   def cases(command)
     case command
     when '1'
-      puts "listing all books..."
+      self.list_books()
     when '2'
       puts "listing all people..."
     when '3'
@@ -43,22 +43,23 @@ class App
 
   def run
     puts "Welcome to the School Library!"
-    first = true
-    command = self.call_input
+    command = self.call_input(true)
     self.cases(command)
     while command != '7'
       puts ' '
-      if first
-        command = self.call_input
-      end
+      command = self.call_input(false)
       self.cases(command)
     end
+    puts ' '
     puts "Leaving the school... Goodbye!"
   end
 
   private
 
   def list_books
+    if @books.length < 1
+      puts "There are no books yet!"
+    end
     @books.each do |book|
       puts "The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
     end
