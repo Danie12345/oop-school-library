@@ -21,45 +21,43 @@ class App
     puts '5 - Create a rental'
     puts '6 - List all rentals for a given id'
     puts '7 - Exit'
-    return gets.chomp
+    gets.chomp
   end
 
   def cases(command)
     case command
     when '1'
-      self.list_books()
+      list_books
     when '2'
-      puts "listing all people..."
+      list_people
     when '3'
-      puts "creating a person..."
+      puts 'creating a person...'
     when '4'
-      puts "creating a book..."
+      puts 'creating a book...'
     when '5'
-      puts "creating a rental..."
+      puts 'creating a rental...'
     when '6'
-      puts "listing all rentals for the id..."
+      puts 'listing all rentals for the id...'
     end
   end
 
   def run
-    puts "Welcome to the School Library!"
-    command = self.call_input(true)
-    self.cases(command)
+    puts 'Welcome to the School Library!'
+    command = call_input(true)
+    cases(command)
     while command != '7'
       puts ' '
-      command = self.call_input(false)
-      self.cases(command)
+      command = call_input(false)
+      cases(command)
     end
     puts ' '
-    puts "Leaving the school... Goodbye!"
+    puts 'Leaving the school... Goodbye!'
   end
 
   private
 
   def list_books
-    if @books.length < 1
-      puts "There are no books yet!"
-    end
+    puts 'There are no books yet!' if @books.empty?
     @books.each do |book|
       puts "The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
     end
@@ -71,6 +69,7 @@ class App
 
   def list_people
     @people.each do |type, group|
+      puts "There are no #{type}s yet!" if group.empty?
       group.each do |person|
         list_people(person, type)
       end
