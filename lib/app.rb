@@ -138,6 +138,10 @@ class App
   end
 
   def rentals_by_index
+    if @allpeople.empty?
+      puts 'There are no people in the registry'
+      return
+    end
     person = choose_obj('Choose a person from the following by index to retrieve their rentals: ', :list_people,
                         @allpeople)
     puts "#{person.name} has no rentals yet!" if person.rentals.empty?
