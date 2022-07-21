@@ -20,7 +20,7 @@ class App
     puts '3 - Create a person'
     puts '4 - Create a book'
     puts '5 - Create a rental'
-    puts '6 - List all rentals for a given id'
+    puts '6 - List all rentals for a given index'
     puts '7 - Exit'
     gets.chomp.strip
   end
@@ -38,7 +38,7 @@ class App
     when '5'
       create_rental
     when '6'
-      puts 'listing all rentals for the id...'
+      rentals_by_index
     end
   end
 
@@ -82,10 +82,13 @@ class App
   def list_people(index_b: false)
     index = 0
     @people.each do |type, group|
-      puts "There are no #{type}s yet!" if group.empty?
-      group.each do |person|
-        list_person(person, type, index, index_b)
-        index += 1
+      if group.empty?
+        puts "There are no #{type}s yet!" unless index_b
+      else
+        group.each do |person|
+          list_person(person, type, index, index_b)
+          index += 1
+        end
       end
     end
   end
@@ -121,7 +124,6 @@ class App
       list_people(index_b: true)
     end
     obj_index = gets.chomp.strip.to_i
-    puts obj_list[obj_index]
     obj_list[obj_index]
   end
 
@@ -133,5 +135,14 @@ class App
     book.add_rental(rental)
     person.add_rental(rental)
     @rentals << rental
+  end
+
+  def rentals_by_index
+    person = choose_obj('Choose a person from the following by index to retrieve their rentals: ', :list_people,
+                        @allpeople)
+    puts "#{person.name} has no rentals yet!" if person.rentals.empty?
+    person.rentals.each do |rental|
+      puts "#{person.name} rented the book #{rental.book.title} on #{rental.date}"
+    end
   end
 end
