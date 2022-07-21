@@ -2,6 +2,7 @@ class App
   def initialize
     @people = { 'people' => [], 'teachers' => [] }
     @books = []
+    @rentals = []
   end
 
   def list_books
