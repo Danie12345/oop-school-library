@@ -33,7 +33,7 @@ class App
     when '3'
       create_person
     when '4'
-      puts 'creating a book...'
+      create_book
     when '5'
       puts 'creating a rental...'
     when '6'
@@ -89,5 +89,11 @@ class App
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
       @people['teacher'] << Teacher.new(spesh, age, name)
     end
+  end
+
+  def create_book
+    title = [(print 'Title: '), gets.rstrip][1]
+    author = [(print 'Author: '), gets.rstrip][1]
+    @books << Book.new(title, author)
   end
 end
