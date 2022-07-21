@@ -46,7 +46,7 @@ class App
     command = call_input(true)
     cases(command)
     while command != '7'
-      puts " "
+      puts ' '
       command = call_input(false)
       cases(command)
     end
@@ -82,7 +82,8 @@ class App
     age = [(print 'Age: '), gets.rstrip][1]
     case type
     when 'student'
-      perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1]
+      perm = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1]
+      perms = { 'y' => true, 'n' => false }[perm]
       @people['student'] << Student.new(@classroom, age, name, perms)
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]

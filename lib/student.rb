@@ -4,7 +4,7 @@ class Student < Person
   attr_accessor :classroom
 
   def initialize(classroom, age, name, parent_permission)
-    super(age, name)
+    super(age, name, parent_permission: parent_permission)
     classroom.add_student(self)
   end
 
