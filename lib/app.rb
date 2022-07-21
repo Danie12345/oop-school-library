@@ -7,6 +7,7 @@ require_relative 'book'
 class App
   def initialize
     @people = { 'student' => [], 'teacher' => [] }
+    @allpeople = []
     @books = []
     @rentals = []
     @classroom = Classroom.new('Room A')
@@ -35,7 +36,7 @@ class App
     when '4'
       create_book
     when '5'
-      puts 'creating a rental...'
+      create_rental
     when '6'
       puts 'listing all rentals for the id...'
     end
@@ -56,22 +57,35 @@ class App
 
   private
 
-  def list_books
-    puts 'There are no books yet!' if @books.empty?
+  def list_books(index_b: false)
+    if @books.empty?
+      case index_b
+      when true
+        raise 'There are no books yet!'
+      when false
+        puts 'There are no books yet!'
+      end
+    end
+    index = 0
     @books.each do |book|
-      puts "The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
+      puts "#{if index_b
+                "#{index}) "
+              end}The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
+      index += 1
     end
   end
 
-  def list_person(person, type)
-    puts "[#{type}] #{person.name} is #{person.age} years old and has an id #{person.id}."
+  def list_person(person, type, index, index_b)
+    puts "#{"#{index}) " if index_b}[#{type}] #{person.name} is #{person.age} years old and has an id #{person.id}."
   end
 
-  def list_people
+  def list_people(index_b: false)
+    index = 0
     @people.each do |type, group|
       puts "There are no #{type}s yet!" if group.empty?
       group.each do |person|
-        list_person(person, type)
+        list_person(person, type, index, index_b)
+        index += 1
       end
     end
   end
@@ -89,11 +103,35 @@ class App
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
       @people['teacher'] << Teacher.new(spesh, age, name)
     end
+    @allpeople = @people['student'] + @people['teacher']
   end
 
   def create_book
     title = [(print 'Title: '), gets.rstrip][1]
     author = [(print 'Author: '), gets.rstrip][1]
     @books << Book.new(title, author)
+  end
+
+  def choose_obj(msg, type_func, obj_list)
+    puts msg
+    case type_func
+    when :list_books
+      list_books(index_b: true)
+    when :list_people
+      list_people(index_b: true)
+    end
+    obj_index = gets.chomp.strip.to_i
+    puts obj_list[obj_index]
+    obj_list[obj_index]
+  end
+
+  def create_rental
+    date = [(print 'Type in the current date [dd/mm/yyyy]: '), gets.rstrip][1]
+    book = choose_obj('Choose a book from the following by index: ', :list_books, @books)
+    person = choose_obj('Choose a person from the following by index: ', :list_people, @allpeople)
+    rental = Rental.new(date)
+    book.add_rental(rental)
+    person.add_rental(rental)
+    @rentals << rental
   end
 end
