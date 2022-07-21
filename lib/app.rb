@@ -16,11 +16,10 @@ class App
   end
 
   def list_people
-    @people['student'].each do |person|
-      list_person(person, 'student')
-    end
-    @people['teacher'].each do |person|
-      list_person(person, 'teacher')
+    @people.each do |type, group|
+      group.each do |person|
+        list_people(person, type)
+      end
     end
   end
 end
