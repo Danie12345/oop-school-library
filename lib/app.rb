@@ -21,7 +21,7 @@ class App
     puts '5 - Create a rental'
     puts '6 - List all rentals for a given id'
     puts '7 - Exit'
-    gets.chomp
+    gets.chomp.strip
   end
 
   def cases(command)
@@ -31,7 +31,7 @@ class App
     when '2'
       list_people
     when '3'
-      puts 'creating a person...'
+      create_person
     when '4'
       puts 'creating a book...'
     when '5'
@@ -46,7 +46,7 @@ class App
     command = call_input(true)
     cases(command)
     while command != '7'
-      puts ' '
+      puts " \n "
       command = call_input(false)
       cases(command)
     end
@@ -64,33 +64,28 @@ class App
   end
 
   def list_person(person, type)
-    puts "The #{type} #{person.name} is #{person.age} years old and has an id #{person.id}."
+    print "[#{type}] #{person.name} is #{person.age} years old and has an id #{person.id}."
   end
 
   def list_people
     @people.each do |type, group|
       puts "There are no #{type}s yet!" if group.empty?
       group.each do |person|
-        list_people(person, type)
+        list_person(person, type)
       end
     end
   end
 
-  def create_person()
-    puts 'Do you want to create a student or a teacher? '
-    type = gets.chomp
-    puts 'Name: '
-    name = gets.chomp
-    puts 'Age: '
-    age = gets.chomp
+  def create_person
+    type = [(print 'Do you want to create a student or a teacher? '), gets.rstrip][1]
+    name = [(print 'Name: '), gets.rstrip][1]
+    age = [(print 'Age: '), gets.rstrip][1]
     case type
     when 'student'
-      puts 'Has parent\'s permission? (y/n) '
-      perms = gets.chomp
+      perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1]
       @people['student'] << Student.new(@classroom, age, name, perms)
     when 'teacher'
-      puts 'What\'s the teacher\'s specialization? '
-      spesh = gets.chomp
+      spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
       @people['teacher'] << Teacher.new(spesh, age, name)
     end
   end
