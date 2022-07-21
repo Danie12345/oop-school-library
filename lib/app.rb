@@ -46,7 +46,7 @@ class App
     command = call_input(true)
     cases(command)
     while command != '7'
-      puts " \n "
+      puts " "
       command = call_input(false)
       cases(command)
     end
@@ -64,7 +64,7 @@ class App
   end
 
   def list_person(person, type)
-    print "[#{type}] #{person.name} is #{person.age} years old and has an id #{person.id}."
+    puts "[#{type}] #{person.name} is #{person.age} years old and has an id #{person.id}."
   end
 
   def list_people
