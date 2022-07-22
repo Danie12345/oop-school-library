@@ -46,7 +46,7 @@ class App
     puts 'Welcome to the School Library!'
     command = call_input(true)
     cases(command)
-    while command != '7'
+    while command != 'exit'
       puts ' '
       command = call_input(false)
       cases(command)
