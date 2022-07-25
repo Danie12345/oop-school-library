@@ -13,6 +13,50 @@ class App
     @classroom = Classroom.new('Room A')
   end
 
+  def call_input(first)
+    puts "What would you like to do #{first ? 'first' : 'next'}? (1 - 7)"
+    puts '1 - List all books'
+    puts '2 - List all people'
+    puts '3 - Create a person'
+    puts '4 - Create a book'
+    puts '5 - Create a rental'
+    puts '6 - List all rentals for a given index'
+    puts '7 - Exit'
+    gets.chomp.strip
+  end
+
+  def cases(command)
+    case command
+    when '1'
+      list_books
+    when '2'
+      list_people
+    when '3'
+      create_person
+    when '4'
+      create_book
+    when '5'
+      create_rental
+    when '6'
+      rentals_by_index
+    end
+  end
+
+  def action(first)
+    command = call_input(first)
+    cases(command)
+    return command
+  end
+
+  def run(command)
+    while command != '7'
+      puts ' '
+      command = action(false)
+    end
+  end
+
+  private
+
   def list_books(index_b: false)
     if @books.empty?
       case index_b
