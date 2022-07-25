@@ -1,4 +1,3 @@
-require_relative 'classroom'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
@@ -10,7 +9,6 @@ class App
     @allpeople = []
     @books = []
     @rentals = []
-    @classroom = Classroom.new('Room A')
   end
 
   def call_input(first)
@@ -97,7 +95,7 @@ class App
     case type
     when 'student'
       perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1].downcase == 'y'
-      add_person(Student.new(@classroom, age, name, perms))
+      add_person(Student.new(age, name, perms))
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
       add_person(Teacher.new(spesh, age, name))
