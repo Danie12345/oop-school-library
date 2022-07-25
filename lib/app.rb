@@ -59,11 +59,12 @@ class App
 
   def list_books(index_b: false)
     if @books.empty?
+      nobooksmsg = 'There are no books yet!'
       case index_b
       when true
-        raise 'There are no books yet!'
+        raise nobooksmsg
       when false
-        puts 'There are no books yet!'
+        puts nobooksmsg
       end
     end
     @books.each_with_index do |book, i|
@@ -103,6 +104,8 @@ class App
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
       @people['teacher'] << Teacher.new(spesh, age, name)
+    else
+      puts "That type of person is not yet implemented!"
     end
     @allpeople = @people['student'] + @people['teacher']
   end
