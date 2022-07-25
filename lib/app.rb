@@ -70,12 +70,10 @@ class App
         puts 'There are no books yet!'
       end
     end
-    index = 0
-    @books.each do |book|
+    @books.each_with_index do |book, i|
       puts "#{if index_b
-                "#{index}) "
+                "#{i}) "
               end}The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
-      index += 1
     end
   end
 
