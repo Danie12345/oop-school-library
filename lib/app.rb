@@ -26,20 +26,14 @@ class App
   end
 
   def cases(command)
-    case command
-    when '1'
-      list_books
-    when '2'
-      list_people
-    when '3'
-      create_person
-    when '4'
-      create_book
-    when '5'
-      create_rental
-    when '6'
-      rentals_by_index
-    end
+    return unless %w[1 2 3 4 5 6].include? command
+
+    { '1' => -> { list_books },
+      '2' => -> { list_people },
+      '3' => -> { create_person },
+      '4' => -> { create_book },
+      '5' => -> { create_rental },
+      '6' => -> { rentals_by_index } }[command].call
   end
 
   def action(first)
