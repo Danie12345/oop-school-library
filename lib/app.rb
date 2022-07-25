@@ -77,8 +77,8 @@ class App
     end
   end
 
-  def list_person(person, type, index, index_b)
-    puts "#{"#{index}) " if index_b}[#{type}] #{person.name} is #{person.age} years old and has an id #{person.id}."
+  def list_person(person, index, index_b)
+    puts "#{"#{index}) " if index_b}[#{person.class}] #{person.name} is #{person.age} years old and has an id #{person.id}."
   end
 
   def list_people(index_b: false)
@@ -88,7 +88,7 @@ class App
         puts "There are no #{type}s yet!" unless index_b
       else
         group.each do |person|
-          list_person(person, type, index, index_b)
+          list_person(person, index, index_b)
           index += 1
         end
       end
