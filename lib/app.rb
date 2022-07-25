@@ -93,7 +93,7 @@ class App
   end
 
   def add_person(person)
-    @people["#{person.class}"] << person
+    @people[person.class.to_s] << person
     @allpeople = @people['Student'] + @people['Teacher']
     puts "#{person.class} created successfully"
   end
@@ -104,14 +104,13 @@ class App
     age = [(print 'Age: '), gets.rstrip][1]
     case type
     when 'student'
-      perm = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1]
-      perms = { 'y' => true, 'n' => false }[perm]
+      perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1].downcase == 'y'
       add_person(Student.new(@classroom, age, name, perms))
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
       add_person(Teacher.new(spesh, age, name))
     else
-      puts "That type of person is not yet implemented!"
+      puts 'That type of person is not yet implemented!'
     end
   end
 
