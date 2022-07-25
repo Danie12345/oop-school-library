@@ -1,4 +1,3 @@
-require_relative 'classroom'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
@@ -6,11 +5,10 @@ require_relative 'book'
 
 class App
   def initialize
-    @people = { 'student' => [], 'teacher' => [] }
+    @people = { 'Student' => [], 'Teacher' => [] }
     @allpeople = []
     @books = []
     @rentals = []
-    @classroom = Classroom.new('Room A')
   end
 
   def call_input(first)
@@ -26,57 +24,48 @@ class App
   end
 
   def cases(command)
-    case command
-    when '1'
-      list_books
-    when '2'
-      list_people
-    when '3'
-      create_person
-    when '4'
-      create_book
-    when '5'
-      create_rental
-    when '6'
-      rentals_by_index
-    end
+    return unless %w[1 2 3 4 5 6].include? command
+
+    { '1' => -> { list_books },
+      '2' => -> { list_people },
+      '3' => -> { create_person },
+      '4' => -> { create_book },
+      '5' => -> { create_rental },
+      '6' => -> { rentals_by_index } }[command].call
   end
 
-  def run
-    puts 'Welcome to the School Library!'
-    command = call_input(true)
+  def action(first)
+    command = call_input(first)
     cases(command)
+    command
+  end
+
+  def run(command)
     while command != '7'
       puts ' '
-      command = call_input(false)
-      cases(command)
+      command = action(false)
     end
-    puts ' '
-    puts 'Leaving the school... Goodbye!'
   end
 
   private
 
   def list_books(index_b: false)
     if @books.empty?
+      nobooksmsg = 'There are no books yet!'
       case index_b
       when true
-        raise 'There are no books yet!'
+        raise nobooksmsg
       when false
-        puts 'There are no books yet!'
+        puts nobooksmsg
       end
     end
-    index = 0
-    @books.each do |book|
-      puts "#{if index_b
-                "#{index}) "
-              end}The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
-      index += 1
+    @books.each_with_index do |book, i|
+      puts "#{"#{i}) " if index_b}The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
     end
   end
 
-  def list_person(person, type, index, index_b)
-    puts "#{"#{index}) " if index_b}[#{type}] #{person.name} is #{person.age} years old and has an id #{person.id}."
+  def list_person(person, index, index_b)
+    puts person.description(index, index_b: index_b)
   end
 
   def list_people(index_b: false)
@@ -86,11 +75,17 @@ class App
         puts "There are no #{type}s yet!" unless index_b
       else
         group.each do |person|
-          list_person(person, type, index, index_b)
+          list_person(person, index, index_b)
           index += 1
         end
       end
     end
+  end
+
+  def add_person(person)
+    @people[person.class.to_s] << person
+    @allpeople = @people['Student'] + @people['Teacher']
+    puts "#{person.class} created successfully"
   end
 
   def create_person
@@ -99,14 +94,14 @@ class App
     age = [(print 'Age: '), gets.rstrip][1]
     case type
     when 'student'
-      perm = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1]
-      perms = { 'y' => true, 'n' => false }[perm]
-      @people['student'] << Student.new(@classroom, age, name, perms)
+      perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1].downcase == 'y'
+      add_person(Student.new(age, name, perms))
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
-      @people['teacher'] << Teacher.new(spesh, age, name)
+      add_person(Teacher.new(spesh, age, name))
+    else
+      puts 'That type of person is not yet implemented!'
     end
-    @allpeople = @people['student'] + @people['teacher']
   end
 
   def create_book
@@ -144,9 +139,9 @@ class App
     end
     person = choose_obj('Choose a person from the following by index to retrieve their rentals: ', :list_people,
                         @allpeople)
-    puts "#{person.name} has no rentals yet!" if person.rentals.empty?
+    puts "#{person.correct_name} has no rentals yet!" if person.rentals.empty?
     person.rentals.each do |rental|
-      puts "#{person.name} rented the book #{rental.book.title} on #{rental.date}"
+      puts "#{person.correct_name} rented the book #{rental.book.title} on #{rental.date}"
     end
   end
 end

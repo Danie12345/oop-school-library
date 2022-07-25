@@ -6,7 +6,8 @@ class Teacher < Person
     @specialization = specialization
   end
 
-  def can_use_services?
-    true
+  def description(index = 0, index_b: false)
+    "#{"#{index}) " if index_b}[#{self.class}] #{correct_name} is #{@age} " \
+      "years old, specialized in #{@specialization} and has an id #{@id}."
   end
 end
