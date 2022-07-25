@@ -6,7 +6,7 @@ require_relative 'book'
 
 class App
   def initialize
-    @people = { 'student' => [], 'teacher' => [] }
+    @people = { 'Student' => [], 'Teacher' => [] }
     @allpeople = []
     @books = []
     @rentals = []
@@ -92,6 +92,12 @@ class App
     end
   end
 
+  def add_person(person)
+    @people["#{person.class}"] << person
+    @allpeople = @people['Student'] + @people['Teacher']
+    puts "#{person.class} created successfully"
+  end
+
   def create_person
     type = [(print 'Do you want to create a student or a teacher? '), gets.rstrip][1]
     name = [(print 'Name: '), gets.rstrip][1]
@@ -100,14 +106,13 @@ class App
     when 'student'
       perm = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1]
       perms = { 'y' => true, 'n' => false }[perm]
-      @people['student'] << Student.new(@classroom, age, name, perms)
+      add_person(Student.new(@classroom, age, name, perms))
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
-      @people['teacher'] << Teacher.new(spesh, age, name)
+      add_person(Teacher.new(spesh, age, name))
     else
       puts "That type of person is not yet implemented!"
     end
-    @allpeople = @people['student'] + @people['teacher']
   end
 
   def create_book
