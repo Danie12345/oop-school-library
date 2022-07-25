@@ -11,4 +11,9 @@ class Student < Person
   def play_hooky
     '¯\(ツ)/¯'
   end
+
+  def description(index = 0, index_b: false)
+    "#{"#{index}) " if index_b}[#{self.class}] #{@name} is #{@age} years old," \
+      " they#{" don't" unless @parent_permission} have their parent's permission and has an id #{@id}."
+  end
 end

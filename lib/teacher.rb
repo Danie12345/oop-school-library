@@ -9,4 +9,10 @@ class Teacher < Person
   def can_use_services?
     true
   end
+
+  def description(index = 0, index_b: false)
+    "#{if index_b
+         "#{index}) "
+       end}[#{self.class}] #{@name} is #{@age} years old, specialized #{@specialization} and has an id #{@id}."
+  end
 end

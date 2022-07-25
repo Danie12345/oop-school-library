@@ -34,4 +34,8 @@ class Person < Nameable
     rental.person = self
     @rentals.push(rental) unless @rentals.include?(rental)
   end
+
+  def description(index = 0, index_b: false)
+    "#{"#{index}) " if index_b}[#{self.class}] #{@name} is #{@age} years old and has an id #{@id}."
+  end
 end

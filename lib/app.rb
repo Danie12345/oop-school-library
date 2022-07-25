@@ -67,9 +67,7 @@ class App
   end
 
   def list_person(person, index, index_b)
-    puts "#{if index_b
-              "#{index}) "
-            end}[#{person.class}] #{person.name} is #{person.age} years old and has an id #{person.id}."
+    puts person.description(index, index_b: index_b)
   end
 
   def list_people(index_b: false)
