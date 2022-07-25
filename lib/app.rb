@@ -45,7 +45,7 @@ class App
   def action(first)
     command = call_input(first)
     cases(command)
-    return command
+    command
   end
 
   def run(command)
@@ -67,14 +67,14 @@ class App
       end
     end
     @books.each_with_index do |book, i|
-      puts "#{if index_b
-                "#{i}) "
-              end}The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
+      puts "#{"#{i}) " if index_b}The book #{book.title} by #{book.author} appears in #{book.rentals.length} rentals."
     end
   end
 
   def list_person(person, index, index_b)
-    puts "#{"#{index}) " if index_b}[#{person.class}] #{person.name} is #{person.age} years old and has an id #{person.id}."
+    puts "#{if index_b
+              "#{index}) "
+            end}[#{person.class}] #{person.name} is #{person.age} years old and has an id #{person.id}."
   end
 
   def list_people(index_b: false)
