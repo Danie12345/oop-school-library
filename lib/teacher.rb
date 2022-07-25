@@ -7,8 +7,7 @@ class Teacher < Person
   end
 
   def description(index = 0, index_b: false)
-    "#{if index_b
-         "#{index}) "
-       end}[#{self.class}] #{@name} is #{@age} years old, specialized #{@specialization} and has an id #{@id}."
+    "#{"#{index}) " if index_b}[#{self.class}] #{correct_name} is #{@age}"\
+      " years old, specialized in #{@specialization} and has an id #{@id}."
   end
 end

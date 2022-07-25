@@ -1,7 +1,6 @@
 require 'securerandom'
-require_relative 'nameable'
 
-class Person < Nameable
+class Person
   attr_reader :id, :rentals
   attr_accessor :name, :age
 
@@ -14,12 +13,6 @@ class Person < Nameable
     @rentals = []
   end
 
-  private
-
-  def correct_name
-    @name
-  end
-
   def add_rental(rental)
     rental.person = self
     @rentals.push(rental) unless @rentals.include?(rental)
@@ -27,5 +20,9 @@ class Person < Nameable
 
   def description(index = 0, index_b: false)
     "#{"#{index}) " if index_b}[#{self.class}] #{@name} is #{@age} years old and has an id #{@id}."
+  end
+
+  def correct_name
+    @name.capitalize
   end
 end

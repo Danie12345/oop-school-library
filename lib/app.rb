@@ -139,9 +139,9 @@ class App
     end
     person = choose_obj('Choose a person from the following by index to retrieve their rentals: ', :list_people,
                         @allpeople)
-    puts "#{person.name} has no rentals yet!" if person.rentals.empty?
+    puts "#{person.correct_name} has no rentals yet!" if person.rentals.empty?
     person.rentals.each do |rental|
-      puts "#{person.name} rented the book #{rental.book.title} on #{rental.date}"
+      puts "#{person.correct_name} rented the book #{rental.book.title} on #{rental.date}"
     end
   end
 end
