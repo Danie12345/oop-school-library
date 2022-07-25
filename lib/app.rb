@@ -42,14 +42,18 @@ class App
     end
   end
 
+  def action(first)
+    command = call_input(first)
+    cases(command)
+    return command
+  end
+
   def run
     puts 'Welcome to the School Library!'
-    command = call_input(true)
-    cases(command)
+    command = action(true)
     while command != '7'
       puts ' '
-      command = call_input(false)
-      cases(command)
+      command = action(false)
     end
     puts ' '
     puts 'Leaving the school... Goodbye!'
