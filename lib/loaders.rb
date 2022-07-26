@@ -6,7 +6,7 @@ require_relative 'rental'
 require_relative 'book'
 
 module Loaders
-  def loadpeople(people, allpeople)
+  def load_people(people, allpeople = [])
     file = JSON.parse(File.read('people.json'), object_class: Hash)
     file.each do |prsn|
       props = JSON.parse(prsn)['props']
@@ -26,7 +26,7 @@ module Loaders
     [people, allpeople]
   end
 
-  def load_books(books)
+  def load_books(books = [])
     file = JSON.parse(File.read('books.json'), object_class: Struct)
     file.each do |buk|
       props = JSON.parse(buk)['props']
@@ -36,5 +36,28 @@ module Loaders
       books << Book.new(title, author, id)
     end
     books
+  end
+
+  def load_rentals(people, books, rentals = [])
+    file = JSON.parse(File.read('rentals.json'), object_class: Struct)
+    file.each do |rent|
+      props = JSON.parse(rent)['props']
+      date = props[0]
+      bookid = props[1]
+      personid = props[2]
+      rental = Rental.new(date)
+      book = find(bookid, books)
+      person = find(personid, people)
+      book.add_rental(rental)
+      person.add_rental(rental)
+      rentals << rental
+    end
+    rentals
+  end
+
+  def find(id, items)
+    items.each do |item|
+      return item if item.id == id
+    end
   end
 end
