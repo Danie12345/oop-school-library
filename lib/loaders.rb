@@ -26,4 +26,16 @@ module Loaders
     end
     [people, allpeople]
   end
+
+  def load_books(books)
+    file = File.read('books.txt').split("\n")
+    file.each do |line|
+      buk = JSON.parse(line, object_class: Hash)
+      props = buk['props']
+      title = props[0]
+      author = props[1]
+      books << Book.new(title, author)
+    end
+    books
+  end
 end

@@ -56,6 +56,7 @@ class App
 
   def load
     @people, @allpeople = loadpeople(@people, @allpeople)
+    @books = load_books(@books)
   end
 
   private
