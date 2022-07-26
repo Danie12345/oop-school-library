@@ -60,4 +60,11 @@ module Loaders
       return item if item.id == id
     end
   end
+
+  def load_all(people)
+    people, allpeople = load_people(people)
+    books = load_books
+    rentals = load_rentals(allpeople, books)
+    [people, allpeople, books, rentals]
+  end
 end

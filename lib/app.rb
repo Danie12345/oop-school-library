@@ -50,14 +50,16 @@ class App
     while command != '7'
       puts ' '
       command = action(false)
+      save
     end
-    all_serialize(@allpeople, @books, @rentals)
+  end
+
+  def save
+    serialize_all(@allpeople, @books, @rentals)
   end
 
   def load
-    @people, @allpeople = load_people(@people)
-    @books = load_books
-    @rentals = load_rentals(@allpeople, @books)
+    @people, @allpeople, @books, @rentals = load_all(@people)
   end
 
   private

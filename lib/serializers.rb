@@ -29,7 +29,7 @@ module Serializers
     file.close
   end
 
-  def all_serialize(allpeople, books, rentals)
+  def serialize_all(allpeople, books, rentals)
     serialize_people(allpeople)
     serialize_books(books)
     serialize_rentals(rentals)
