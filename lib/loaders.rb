@@ -32,7 +32,8 @@ module Loaders
       props = JSON.parse(buk)['props']
       title = props[0]
       author = props[1]
-      books << Book.new(title, author)
+      id = props[2]
+      books << Book.new(title, author, id)
     end
     books
   end

@@ -1,10 +1,13 @@
+require 'securerandom'
+
 class Book
   attr_accessor :title, :author
-  attr_reader :rentals
+  attr_reader :rentals, :id
 
-  def initialize(title, author)
+  def initialize(title, author, id = SecureRandom.uuid)
     @title = title
     @author = author
+    @id = id
     @rentals = []
   end
 
@@ -16,7 +19,7 @@ class Book
   def to_json(*args)
     {
       JSON.create_id => self.class.name,
-      'props' => [@title, @author]
+      'props' => [@title, @author, @id]
     }.to_json(*args)
   end
 

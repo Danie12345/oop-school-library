@@ -19,8 +19,19 @@ module Serializers
     file.close
   end
 
-  def all_serialize(allpeople, books)
+  def serialize_rentals(rentals)
+    file = File.open('rentals.json', 'w')
+    newarray = []
+    rentals.each do |rental|
+      newarray.push(JSON.generate(rental).to_s)
+    end
+    file.write(newarray)
+    file.close
+  end
+
+  def all_serialize(allpeople, books, rentals)
     serialize_people(allpeople)
     serialize_books(books)
+    serialize_rentals(rentals)
   end
 end
