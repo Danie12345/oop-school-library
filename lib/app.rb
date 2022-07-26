@@ -51,8 +51,7 @@ class App
       puts ' '
       command = action(false)
     end
-    serialize_people(@allpeople)
-    serialize_books(@books)
+    all_serialize(@allpeople, @books)
   end
 
   def load

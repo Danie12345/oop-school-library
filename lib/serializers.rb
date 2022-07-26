@@ -14,4 +14,9 @@ module Serializers
     end
     file.close
   end
+
+  def all_serialize(allpeople, books)
+    serialize_people(allpeople)
+    serialize_books(books)
+  end
 end
