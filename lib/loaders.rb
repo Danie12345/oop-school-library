@@ -7,6 +7,8 @@ require_relative 'book'
 
 module Loaders
   def load_people(people, file_name, allpeople = [])
+    return [people, []] unless File.exist?(file_name)
+
     file = JSON.parse(File.read(file_name), object_class: Hash)
     file.each do |prsn|
       props = JSON.parse(prsn)['props']
@@ -27,6 +29,8 @@ module Loaders
   end
 
   def load_books(file_name, books = [])
+    return [] unless File.exist?(file_name)
+
     file = JSON.parse(File.read(file_name), object_class: Hash)
     file.each do |buk|
       props = JSON.parse(buk)['props']
@@ -39,6 +43,8 @@ module Loaders
   end
 
   def load_rentals(people, books, file_name, rentals = [])
+    return [] unless File.exist?(file_name)
+
     file = JSON.parse(File.read(file_name), object_class: Hash)
     file.each do |rent|
       props = JSON.parse(rent)['props']
