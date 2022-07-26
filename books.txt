@@ -1,2 +1,0 @@
-{"json_class":"Book","props":["hola","yo"]}
-{"json_class":"Book","props":["hello","me"]}

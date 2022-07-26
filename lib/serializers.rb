@@ -1,17 +1,21 @@
 module Serializers
   def serialize_people(allpeople)
-    file = File.open('people.txt', 'w')
+    file = File.open('people.json', 'w')
+    newarray = []
     allpeople.each do |person|
-      file.write("#{JSON.generate(person)}\n")
+      newarray.push(JSON.generate(person).to_s)
     end
+    file.write(newarray)
     file.close
   end
 
   def serialize_books(books)
-    file = File.open('books.txt', 'w')
+    file = File.open('books.json', 'w')
+    newarray = []
     books.each do |book|
-      file.write("#{JSON.generate(book)}\n")
+      newarray.push(JSON.generate(book).to_s)
     end
+    file.write(newarray)
     file.close
   end
 

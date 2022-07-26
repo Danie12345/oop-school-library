@@ -7,15 +7,14 @@ require_relative 'book'
 
 module Loaders
   def loadpeople(people, allpeople)
-    file = File.read('people.txt').split("\n")
-    file.each do |line|
-      prsn = JSON.parse(line, object_class: Hash)
-      props = prsn['props']
+    file = JSON.parse(File.read('people.json'), object_class: Hash)
+    file.each do |prsn|
+      props = JSON.parse(prsn)['props']
       id = props[0]
       age = props[1].to_i
       name = props[2]
       last = props[3]
-      case prsn['json_class']
+      case JSON.parse(prsn)['json_class']
       when 'Student'
         person = Student.new(age, name, id, parent_permission: last)
       when 'Teacher'
@@ -28,10 +27,9 @@ module Loaders
   end
 
   def load_books(books)
-    file = File.read('books.txt').split("\n")
-    file.each do |line|
-      buk = JSON.parse(line, object_class: Hash)
-      props = buk['props']
+    file = JSON.parse(File.read('books.json'), object_class: Struct)
+    file.each do |buk|
+      props = JSON.parse(buk)['props']
       title = props[0]
       author = props[1]
       books << Book.new(title, author)
