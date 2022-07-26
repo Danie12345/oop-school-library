@@ -5,8 +5,10 @@ require_relative 'teacher'
 require_relative 'rental'
 require_relative 'book'
 require_relative 'loaders'
+require_relative 'serializers'
 
 class App
+  include Serializers
   include Loaders
   def initialize
     @people = { 'Student' => [], 'Teacher' => [] }
@@ -49,7 +51,7 @@ class App
       puts ' '
       command = action(false)
     end
-    serialize_people
+    serialize_people(@allpeople)
   end
 
   def load
@@ -100,7 +102,7 @@ class App
   def create_person
     type = [(print 'Do you want to create a student or a teacher? '), gets.rstrip][1]
     name = [(print 'Name: '), gets.rstrip][1]
-    age = [(print 'Age: '), gets.rstrip][1]
+    age = [(print 'Age: '), gets.rstrip][1].to_i
     case type
     when 'student'
       perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1].downcase == 'y'
@@ -152,13 +154,5 @@ class App
     person.rentals.each do |rental|
       puts "#{person.correct_name} rented the book #{rental.book.title} on #{rental.date}"
     end
-  end
-
-  def serialize_people
-    file = File.open('people.txt', 'w')
-    @allpeople.each do |person|
-      file.write("#{JSON.generate(person)}\n")
-    end
-    file.close
   end
 end
