@@ -6,4 +6,12 @@ module Serializers
     end
     file.close
   end
+
+  def serialize_books(books)
+    file = File.open('books.txt', 'w')
+    books.each do |book|
+      file.write("#{JSON.generate(book)}\n")
+    end
+    file.close
+  end
 end

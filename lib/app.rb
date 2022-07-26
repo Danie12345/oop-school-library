@@ -52,6 +52,7 @@ class App
       command = action(false)
     end
     serialize_people(@allpeople)
+    serialize_books(@books)
   end
 
   def load
