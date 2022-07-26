@@ -15,6 +15,9 @@ class App
     @allpeople = []
     @books = []
     @rentals = []
+    @people_file = 'people.json'
+    @books_file = 'books.json'
+    @rentals_file = 'rentals.json'
   end
 
   def call_input(first)
@@ -55,11 +58,11 @@ class App
   end
 
   def save
-    serialize_all(@allpeople, @books, @rentals)
+    serialize_all([@allpeople, @people_file, @books, @books_file, @rentals, @rentals_file])
   end
 
   def load
-    @people, @allpeople, @books, @rentals = load_all(@people)
+    @people, @allpeople, @books, @rentals = load_all(@people, @people_file, @books_file, @rentals_file)
   end
 
   private

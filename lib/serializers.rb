@@ -1,37 +1,17 @@
 module Serializers
-  def serialize_people(allpeople)
-    file = File.open('people.json', 'w')
-    newarray = []
-    allpeople.each do |person|
-      newarray.push(JSON.generate(person).to_s)
+  def serialize_items(items, file_name)
+    file = File.open(file_name, 'w')
+    obj_strings = []
+    items.each do |item|
+      obj_strings.push(JSON.generate(item).to_s)
     end
-    file.write(newarray)
+    file.write(obj_strings)
     file.close
   end
 
-  def serialize_books(books)
-    file = File.open('books.json', 'w')
-    newarray = []
-    books.each do |book|
-      newarray.push(JSON.generate(book).to_s)
-    end
-    file.write(newarray)
-    file.close
-  end
-
-  def serialize_rentals(rentals)
-    file = File.open('rentals.json', 'w')
-    newarray = []
-    rentals.each do |rental|
-      newarray.push(JSON.generate(rental).to_s)
-    end
-    file.write(newarray)
-    file.close
-  end
-
-  def serialize_all(allpeople, books, rentals)
-    serialize_people(allpeople)
-    serialize_books(books)
-    serialize_rentals(rentals)
+  def serialize_all(data)
+    serialize_items(data[0], data[1])
+    serialize_items(data[2], data[3])
+    serialize_items(data[4], data[5])
   end
 end

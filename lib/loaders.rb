@@ -6,8 +6,8 @@ require_relative 'rental'
 require_relative 'book'
 
 module Loaders
-  def load_people(people, allpeople = [])
-    file = JSON.parse(File.read('people.json'), object_class: Hash)
+  def load_people(people, file_name, allpeople = [])
+    file = JSON.parse(File.read(file_name), object_class: Hash)
     file.each do |prsn|
       props = JSON.parse(prsn)['props']
       id = props[0]
@@ -26,8 +26,8 @@ module Loaders
     [people, allpeople]
   end
 
-  def load_books(books = [])
-    file = JSON.parse(File.read('books.json'), object_class: Struct)
+  def load_books(file_name, books = [])
+    file = JSON.parse(File.read(file_name), object_class: Hash)
     file.each do |buk|
       props = JSON.parse(buk)['props']
       title = props[0]
@@ -38,8 +38,8 @@ module Loaders
     books
   end
 
-  def load_rentals(people, books, rentals = [])
-    file = JSON.parse(File.read('rentals.json'), object_class: Struct)
+  def load_rentals(people, books, file_name, rentals = [])
+    file = JSON.parse(File.read(file_name), object_class: Hash)
     file.each do |rent|
       props = JSON.parse(rent)['props']
       date = props[0]
@@ -61,10 +61,10 @@ module Loaders
     end
   end
 
-  def load_all(people)
-    people, allpeople = load_people(people)
-    books = load_books
-    rentals = load_rentals(allpeople, books)
+  def load_all(people, people_file, books_file, rentals_file)
+    people, allpeople = load_people(people, people_file)
+    books = load_books(books_file)
+    rentals = load_rentals(allpeople, books, rentals_file)
     [people, allpeople, books, rentals]
   end
 end
