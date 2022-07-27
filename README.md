@@ -19,6 +19,12 @@ An object-based school library that uses the Ruby Object Model run on the IRB.
 - Twitter: [@DanielMalo_v4](https://twitter.com/DanielMalo_v4)
 - LinkedIn: [Daniel Malo](https://linkedin.com/in/daniel-malo)
 
+👤 **Axel Soler**
+
+- GitHub: [@AxelSoler](https://github.com/AxelSoler)
+- LinkedIn: [Axel Soler](https://www.linkedin.com/in/axel-soler-685985232/)
+- Twitter: [Axel Soler](https://twitter.com/AxelSoler18)
+
 ---
 
 ## 🤝 Contributing
