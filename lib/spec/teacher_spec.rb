@@ -15,7 +15,7 @@ describe Teacher do
       expect(@teacher.name).to eq 'alex'
       expect(@teacher.age).to eq 300
       expect(@teacher.rentals).to match_array([])
-      expect(@teacher.description).to eq '[Teacher] Alex is 300 years old, specialized in maths '\
+      expect(@teacher.description).to eq '[Teacher] Alex is 300 years old, specialized in maths '\ 
                                          'and has an id ec9258f5-7b9f-4fd5-976a-d40ec7ddca09.'
     end
     it 'should capitalize the name' do
