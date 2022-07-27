@@ -6,7 +6,7 @@ require_relative 'rental'
 require_relative 'book'
 
 module Loaders
-  def load_people(people, file_name, allpeople = [])
+  def load_people(people, file_name, classroom, allpeople = [])
     return [people, []] unless File.exist?(file_name)
 
     file = JSON.parse(File.read(file_name), object_class: Hash)
@@ -18,7 +18,8 @@ module Loaders
       last = props[3]
       case JSON.parse(prsn)['json_class']
       when 'Student'
-        person = Student.new(age, name, id, parent_permission: last)
+        person = Student.new(classroom, age, name, id, parent_permission: last)
+        classroom.add_student(person)
       when 'Teacher'
         person = Teacher.new(age, name, last, id)
       end
@@ -67,8 +68,8 @@ module Loaders
     end
   end
 
-  def load_all(people, people_file, books_file, rentals_file)
-    people, allpeople = load_people(people, people_file)
+  def load_all(people, people_file, classroom, books_file, rentals_file)
+    people, allpeople = load_people(people, people_file, classroom)
     books = load_books(books_file)
     rentals = load_rentals(allpeople, books, rentals_file)
     [people, allpeople, books, rentals]

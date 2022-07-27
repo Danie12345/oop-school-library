@@ -1,7 +1,9 @@
 require_relative 'person'
 
 class Student < Person
-  def initialize(age, name, id = SecureRandom.uuid, parent_permission: true)
+  attr_accessor :classroom
+
+  def initialize(_classroom, age, name, id = SecureRandom.uuid, parent_permission: true)
     super(age, name, id, parent_permission: parent_permission)
   end
 
