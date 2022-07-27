@@ -1,8 +1,8 @@
 require_relative 'person'
 
 class Student < Person
-  def initialize(age, name, parent_permission)
-    super(age, name, parent_permission: parent_permission)
+  def initialize(age, name, id = SecureRandom.uuid, parent_permission: true)
+    super(age, name, id, parent_permission: parent_permission)
   end
 
   def description(index = 0, index_b: false)

@@ -1,14 +1,23 @@
+require 'json'
+
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
 require_relative 'book'
+require_relative 'loaders'
+require_relative 'serializers'
 
 class App
+  include Serializers
+  include Loaders
   def initialize
     @people = { 'Student' => [], 'Teacher' => [] }
     @allpeople = []
     @books = []
     @rentals = []
+    @people_file = 'people.json'
+    @books_file = 'books.json'
+    @rentals_file = 'rentals.json'
   end
 
   def call_input(first)
@@ -44,7 +53,16 @@ class App
     while command != '7'
       puts ' '
       command = action(false)
+      save
     end
+  end
+
+  def save
+    serialize_all([@allpeople, @people_file, @books, @books_file, @rentals, @rentals_file])
+  end
+
+  def load
+    @people, @allpeople, @books, @rentals = load_all(@people, @people_file, @books_file, @rentals_file)
   end
 
   private
@@ -91,14 +109,14 @@ class App
   def create_person
     type = [(print 'Do you want to create a student or a teacher? '), gets.rstrip][1]
     name = [(print 'Name: '), gets.rstrip][1]
-    age = [(print 'Age: '), gets.rstrip][1]
+    age = [(print 'Age: '), gets.rstrip][1].to_i
     case type
     when 'student'
       perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1].downcase == 'y'
-      add_person(Student.new(age, name, perms))
+      add_person(Student.new(age, name, parent_permission: perms))
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
-      add_person(Teacher.new(spesh, age, name))
+      add_person(Teacher.new(age, name, spesh))
     else
       puts 'That type of person is not yet implemented!'
     end

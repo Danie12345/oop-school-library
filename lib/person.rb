@@ -4,9 +4,9 @@ class Person
   attr_reader :id, :rentals
   attr_accessor :name, :age
 
-  def initialize(age, name = 'Unknown', parent_permission: true)
+  def initialize(age, name = 'Unknown', id = SecureRandom.uuid, parent_permission: true)
     super()
-    @id = SecureRandom.uuid
+    @id = id
     @age = age
     @name = name
     @parent_permission = parent_permission
@@ -24,5 +24,16 @@ class Person
 
   def correct_name
     @name.capitalize
+  end
+
+  def to_json(*args)
+    {
+      JSON.create_id => self.class.name,
+      'props' => [@id, @age, @name, @parent_permission]
+    }.to_json(*args)
+  end
+
+  def json_create(object)
+    new(*object['props'])
   end
 end
