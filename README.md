@@ -9,7 +9,7 @@ An object-based school library that uses the Ruby Object Model run on the IRB.
 - Install dependencies with `bundle install`
 
 ## Usage
-- Run test with `ruby lib/test_methods.rb`
+- Run test with `rspec spec -f doc lib`
 
 ## Author
 
