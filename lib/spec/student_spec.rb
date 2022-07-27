@@ -16,7 +16,7 @@ describe Student do
       expect(@student.name).to eq 'daniel'
       expect(@student.age).to eq 30
       expect(@student.rentals).to match_array([])
-      expect(@student.description).to eq "[Student] Daniel is 30 years old, they don't have their parent's "\ 
+      expect(@student.description).to eq "[Student] Daniel is 30 years old, they don't have their parent's " \
                                          'permission and has an id ec9258f5-7b9f-4fd5-976a-d40ec7ddca09.'
     end
     it 'should capitalize the name' do
