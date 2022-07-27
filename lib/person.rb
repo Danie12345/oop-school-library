@@ -1,7 +1,8 @@
 require 'securerandom'
+require_relative 'nameable'
 
-class Person
-  attr_reader :id, :rentals
+class Person < Nameable
+  attr_reader :id, :rentals, :parent_permission
   attr_accessor :name, :age
 
   def initialize(age, name = 'Unknown', id = SecureRandom.uuid, parent_permission: true)

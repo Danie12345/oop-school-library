@@ -1,5 +1,6 @@
 require 'json'
 
+require_relative 'classroom'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
@@ -15,6 +16,7 @@ class App
     @allpeople = []
     @books = []
     @rentals = []
+    @classroom = Classroom.new('Class A')
     @people_file = 'people.json'
     @books_file = 'books.json'
     @rentals_file = 'rentals.json'
@@ -62,7 +64,7 @@ class App
   end
 
   def load
-    @people, @allpeople, @books, @rentals = load_all(@people, @people_file, @books_file, @rentals_file)
+    @people, @allpeople, @books, @rentals = load_all(@people, @people_file, @classroom, @books_file, @rentals_file)
   end
 
   private
@@ -113,7 +115,9 @@ class App
     case type
     when 'student'
       perms = [(print 'Has parent\'s permission? (y/n) '), gets.rstrip][1].downcase == 'y'
-      add_person(Student.new(age, name, parent_permission: perms))
+      student = Student.new(@classroom, age, name, parent_permission: perms)
+      @classroom.add_student(student)
+      add_person(student)
     when 'teacher'
       spesh = [(print 'What\'s the teacher\'s specialization? '), gets.rstrip][1]
       add_person(Teacher.new(age, name, spesh))
